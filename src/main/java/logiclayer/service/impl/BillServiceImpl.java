@@ -11,6 +11,7 @@ import dto.DeliveryOrderCreateDto;
 import dto.mapper.Mapper;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
+import jakarta.transaction.Transactional;
 import logiclayer.exeption.FailCreateDeliveryException;
 import logiclayer.exeption.OperationFailException;
 import logiclayer.exeption.UnsupportableWeightFactorException;
@@ -55,7 +56,7 @@ public class BillServiceImpl implements BillService {
      * @throws OperationFailException if not enough money or bill is already paid
      */
     @Override
-    //@Transaction
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void payForDelivery(long userId, long billId) throws OperationFailException {
         log.debug("userId - " + userId + " billId - " + billId);
 

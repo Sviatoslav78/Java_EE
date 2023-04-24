@@ -11,7 +11,7 @@ public class DeliveryCostAndTimeDto {
     private final int timeOnWayInHours;
     private long costInCents;
 
-    DeliveryCostAndTimeDto(long costInCents, int timeOnWayInHours) {
+    public DeliveryCostAndTimeDto(long costInCents, int timeOnWayInHours) {
         this.costInCents = costInCents;
         this.timeOnWayInHours = timeOnWayInHours;
     }

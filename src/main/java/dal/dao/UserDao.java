@@ -1,7 +1,8 @@
 package dal.dao;
 
-import dal.entity.User;
+import entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
+import logiclayer.exeption.ToMachMoneyException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,7 +24,7 @@ public interface UserDao {
     /**
      * @throws AskedDataIsNotCorrect if there no user with such id
      */
-    boolean replenishUserBalance(long userId, long amountMoney) throws AskedDataIsNotCorrect;
+    boolean replenishUserBalance(long userId, long amountMoney) throws ToMachMoneyException;
 
     boolean withdrawUserBalanceOnSumIfItPossible(long userId, long sumWhichUserNeed) throws SQLException;
     /**

@@ -41,33 +41,33 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
     private static final Logger log = LogManager.getLogger(JDBCUserDao.class);
 
 
-    @Override
-    public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
-        log.debug("findByEmailAndPasswordWithPermissions");
-
-//        ResultSetToEntityMapper<User> mapper = getUserResultSetToEntityMapper();
+//    @Override
+//    public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
+//        log.debug("findByEmailAndPasswordWithPermissions");
 //
-//        try (ConnectionProxy connection = connector.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_FIND_BY_EMAIL))) {
-//            preparedStatement.setString(1, email);
-//            preparedStatement.setString(2, password);
-//            Optional<User> user;
-//            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-//                user = resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
-//            }
-//            return user;
-//        } catch (SQLException e) {
-//            log.error("SQLException", e);
-//            throw new DBRuntimeException();
-//        }
-        return null;
-    }
+////        ResultSetToEntityMapper<User> mapper = getUserResultSetToEntityMapper();
+////
+////        try (ConnectionProxy connection = connector.getConnection();
+////             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(USER_FIND_BY_EMAIL))) {
+////            preparedStatement.setString(1, email);
+////            preparedStatement.setString(2, password);
+////            Optional<User> user;
+////            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+////                user = resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
+////            }
+////            return user;
+////        } catch (SQLException e) {
+////            log.error("SQLException", e);
+////            throw new DBRuntimeException();
+////        }
+//        return null;
+//    }
 
     /**
      * @throws AskedDataIsNotCorrect if there no user with such id
      */
     @Override
-    public boolean replenishUserBalance(long userId, long money) throws AskedDataIsNotCorrect {
+    public boolean replenishUserBalance(long userId, long money) {
 //        log.debug("replenishUserBalance");
 //
 //        try (ConnectionProxy connection = connector.getConnection();
@@ -137,27 +137,27 @@ public class JDBCUserDao extends JDBCAbstractGenericDao<User> implements UserDao
         return 10L;
     }
 
-    @Override
-    public List<User> getAllUsers() {
-//        try (ConnectionProxy connection = connector.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_ALL_USERS_INFO))) {
-//            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-//                List<User> result = new ArrayList<>();
-//                while (resultSet.next()) {
-//                    result.add(User.builder()
-//                            .email(resultSet.getString(EMAIL))
-//                            .password(resultSet.getString(PASSWORD))
-//                            .roleType(RoleType.valueOf(resultSet.getString(ROLE)))
-//                            .build());
-//                }
-//                return result;
-//            }
-//        } catch (SQLException e) {
-//            log.error("SQLException", e);
-//            throw new DBRuntimeException();
-//        }
-        return null;
-    }
+//    @Override
+//    public List<User> getAllUsers() {
+////        try (ConnectionProxy connection = connector.getConnection();
+////             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.getString(GET_ALL_USERS_INFO))) {
+////            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+////                List<User> result = new ArrayList<>();
+////                while (resultSet.next()) {
+////                    result.add(User.builder()
+////                            .email(resultSet.getString(EMAIL))
+////                            .password(resultSet.getString(PASSWORD))
+////                            .roleType(RoleType.valueOf(resultSet.getString(ROLE)))
+////                            .build());
+////                }
+////                return result;
+////            }
+////        } catch (SQLException e) {
+////            log.error("SQLException", e);
+////            throw new DBRuntimeException();
+////        }
+//        return null;
+//    }
 
     private ResultSetToEntityMapper<User> getUserResultSetToEntityMapper() {
         return resultSet -> User.builder()

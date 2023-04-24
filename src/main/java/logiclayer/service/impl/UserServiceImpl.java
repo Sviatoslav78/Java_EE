@@ -9,6 +9,7 @@ import dto.RegistrationInfoDto;
 import dto.UserStatisticDto;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
+import jakarta.persistence.EntityNotFoundException;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.OccupiedLoginException;
 import logiclayer.exeption.ToMachMoneyException;
@@ -70,13 +71,11 @@ public class UserServiceImpl implements UserService {
         log.debug("userId -" + userId + " amountMoney -" + amountMoney);
 
         try {
-            if (userDao.getUserBalanceByUserID(userId) + amountMoney <= 0) {
-                throw new ToMachMoneyException();
-            }
             userDao.replenishUserBalance(userId, amountMoney);
-        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
-            log.error("no user", askedDataIsNotCorrect);
+        } catch (EntityNotFoundException ex) {
+            log.error("no user", ex);
             throw new NoSuchUserException();
+
         }
     }
 
@@ -84,8 +83,8 @@ public class UserServiceImpl implements UserService {
     public long getUserBalance(long userId) {
         try {
             return userDao.getUserBalanceByUserID(userId);
-        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
-            log.error("Problems with db user must be correct", askedDataIsNotCorrect);
+        } catch (AskedDataIsNotCorrect | EntityNotFoundException ex) {
+            log.error("Problems with db user must be correct", ex);
             throw new OnClientSideProblemException();
         }
     }
