@@ -3,14 +3,20 @@ package logiclayer.service.impl;
 import dal.dao.BillDao;
 import dal.dao.DeliveryDao;
 import dal.dao.UserDao;
-import dal.entity.Bill;
+import dal.dao.WayDao;
+import dal.dto.DeliveryCostAndTimeDto;
+import entity.Bill;
 import dal.exeption.AskedDataIsNotCorrect;
 import dto.BillDto;
 import dto.BillInfoToPayDto;
 import dto.DeliveryOrderCreateDto;
 import dto.mapper.Mapper;
+import entity.Delivery;
+import entity.User;
+import entity.Way;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import logiclayer.exeption.FailCreateDeliveryException;
 import logiclayer.exeption.OperationFailException;
@@ -23,6 +29,7 @@ import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +49,8 @@ public class BillServiceImpl implements BillService {
     private UserDao userDao;
     @EJB
     private DeliveryDao deliveryDao;
+    @EJB
+    private WayDao wayDao;
 
     @Override
     public List<BillInfoToPayDto> getInfoToPayBillsByUserID(long userId, Locale locale) {
@@ -87,28 +96,30 @@ public class BillServiceImpl implements BillService {
      * @throws FailCreateDeliveryException        if was incorrect data inputted
      */
     @Override
-    //@Transaction
+    @Transactional
     public void initializeBill(DeliveryOrderCreateDto deliveryOrderCreateDto, long initiatorId)
             throws UnsupportableWeightFactorException, FailCreateDeliveryException {
         log.debug("deliveryOrderCreateDto - " + deliveryOrderCreateDto + " initiatorId - " + initiatorId);
-
+        //to do handle Option
+        Way way = wayDao.findByLocalitySendIdAndGetId(deliveryOrderCreateDto.getLocalitySandID(),
+                deliveryOrderCreateDto.getLocalityGetID()).orElseThrow(() -> new EntityNotFoundException("Way not found"));
+        User user = userDao.findByEmail(deliveryOrderCreateDto.getAddresseeEmail()).orElseThrow(()->new EntityNotFoundException("User not found"));
+        User initiator = userDao.findById(initiatorId);
+        Optional<DeliveryCostAndTimeDto> deliveryCostAndTimeDto = wayDao.findByLocalitySandIdAndLocalityGetId(deliveryOrderCreateDto.getLocalitySandID(),
+                deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
         try {
-            long newDeliveryId = deliveryDao.createDelivery(deliveryOrderCreateDto.getAddresseeEmail(),
-                    deliveryOrderCreateDto.getLocalitySandID(),
-                    deliveryOrderCreateDto.getLocalityGetID(),
-                    deliveryOrderCreateDto.getDeliveryWeight());
-            if (billDao.createBill(newDeliveryId, initiatorId, deliveryOrderCreateDto.getLocalitySandID()
-                    , deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight())) {
+            long newDeliveryId = deliveryDao.createDelivery(user, way, deliveryOrderCreateDto.getDeliveryWeight());
+            Delivery delivery = deliveryDao.findById(newDeliveryId);
+
+            if (billDao.createBill(delivery, deliveryCostAndTimeDto.get().getCostInCents(), initiator)) {
                 return;
             }
             throw new UnsupportableWeightFactorException();
-        } catch (SQLException e) {
-            log.error("problem with db", e);
-            throw new FailCreateDeliveryException();
-        } catch (AskedDataIsNotCorrect askedDataIsNotCorrect) {
-            log.error("askedDataIsNotCorrect", askedDataIsNotCorrect);
-            throw new FailCreateDeliveryException();
+        } catch (Exception ex) {
+            log.error("Fail to create delivery", ex);
+            throw new FailCreateDeliveryException(ex);
         }
+
     }
 
     @Override
@@ -140,7 +151,7 @@ public class BillServiceImpl implements BillService {
         return bill -> BillDto.builder()
                 .id(bill.getId())
                 .deliveryId(bill.getDelivery().getId())
-                .isDeliveryPaid(bill.getIsDeliveryPaid())
+                .isDeliveryPaid(bill.isDeliveryPaid())
                 .costInCents(bill.getCostInCents())
                 .dateOfPay(bill.getDateOfPay())
                 .build();

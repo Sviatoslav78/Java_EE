@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+
 /**
  * Represent Delivery table in db
  *
@@ -17,9 +18,8 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "delivery")
 public class Delivery {
-    @OneToOne(mappedBy = "delivery")
-    Bill bill;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -30,10 +30,12 @@ public class Delivery {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "addressee_id", nullable = false)
     private User addressee;
-    @Column(columnDefinition = "BIT(1) default 0")
+    @Column(name = "is_package_received", columnDefinition = "BIT(1) default 0")
     private boolean isPackageReceived;
     @Column(nullable = false)
     private int weight;
+    @OneToOne(mappedBy = "delivery")
+    Bill bill;
 
 
 }

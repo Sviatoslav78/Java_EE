@@ -1,6 +1,6 @@
 package web.controller;
 
-import dal.entity.User;
+import entity.User;
 import dto.LoginInfoDto;
 import dto.mapper.RequestDtoMapper;
 import dto.validation.LoginDtoValidator;
@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.util.Map;
 
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
 import static web.constant.AttributeConstants.LOGGED_USER_NAMES;
 import static web.constant.AttributeConstants.SESSION_USER;
 import static web.constant.PageConstance.ANONYMOUS_FOLDER;
@@ -64,6 +66,9 @@ public class LoginController extends HttpServlet {
         Map<String, HttpSession> loggedUsers = (Map<String, HttpSession>) request
                 .getSession().getServletContext()
                 .getAttribute(LOGGED_USER_NAMES);
+        if (loggedUsers == null) {
+            loggedUsers = emptyMap();
+        }
         if (loggedUsers.containsKey(loginInfoDto.getUsername())) {
             loggedUsers.get(loginInfoDto.getUsername()).invalidate();
         }
@@ -71,7 +76,7 @@ public class LoginController extends HttpServlet {
             User user = userService.loginUser(loginInfoDto);
             loggedUsers.put(loginInfoDto.getUsername(), request.getSession());
             request.getSession().setAttribute(SESSION_USER, user);
-            request.getRequestDispatcher(REDIRECT_COMMAND + USER_PROFILE_REQUEST_COMMAND).forward(request, response);
+            response.sendRedirect(USER_PROFILE_REQUEST_COMMAND);
         } catch (NoSuchUserException ignored) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             request.getRequestDispatcher(MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + LOGIN_FILE_NAME).forward(request, response);

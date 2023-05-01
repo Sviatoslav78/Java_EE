@@ -4,7 +4,7 @@ package logiclayer.service.impl;
 import dal.dao.DeliveryDao;
 import dal.dao.WayDao;
 import dal.dto.DeliveryCostAndTimeDto;
-import dal.entity.Delivery;
+import entity.Delivery;
 import dto.DeliveryInfoRequestDto;
 import dto.DeliveryInfoToGetDto;
 import dto.PriceAndTimeOnDeliveryDto;

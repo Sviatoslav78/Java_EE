@@ -18,14 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "locality")
 public class Locality {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private long id;
-    @Column(nullable = false)
+    @Column(name = "name_ru", nullable = false)
     private String nameRu;
-    @Column(nullable = false)
+    @Column(name = "name_en", nullable = false)
     private String nameEn;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "localitySand")
     private List<Way> waysWhereThisLocalityIsSend;

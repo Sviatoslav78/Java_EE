@@ -1,6 +1,6 @@
 package logiclayer.service;
 
-import dal.entity.User;
+import entity.User;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
 import dto.UserStatisticDto;

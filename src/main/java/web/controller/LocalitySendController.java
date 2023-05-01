@@ -15,6 +15,7 @@ import web.exception.OnClientSideProblemException;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Optional;
 
 import static web.constant.AttributeConstants.SESSION_LANG;
 
@@ -36,14 +37,13 @@ public class LocalitySendController extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("");
 
         if (!idValidator.isValid(request, ID)) {
             log.error("id is not valid client is broken");
             throw new OnClientSideProblemException();
         }
         String responseGson = new Gson().toJson(localityService.getLocaliseLocalitiesGetByLocalitySendId(
-                (Locale) request.getSession().getAttribute(SESSION_LANG),
+                Optional.ofNullable((Locale) request.getSession().getAttribute(SESSION_LANG)).orElse(Locale.ENGLISH),
                 Long.parseLong(request.getParameter(ID))));
         response.getWriter().print(responseGson);
     }

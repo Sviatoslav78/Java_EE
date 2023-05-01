@@ -1,6 +1,7 @@
 package dal.dao;
 
 import dal.dto.DeliveryCostAndTimeDto;
+import entity.Way;
 
 import java.util.Optional;
 
@@ -12,6 +13,8 @@ import java.util.Optional;
  */
 public interface WayDao {
     Optional<DeliveryCostAndTimeDto> findByLocalitySandIdAndLocalityGetId(long localitySandID, long localityGetID, int weight);
+
+    Optional<Way> findByLocalitySendIdAndGetId(long localitySandID, long localityGetID);
 
 
 }

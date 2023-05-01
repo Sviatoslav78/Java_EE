@@ -2,7 +2,7 @@ package logiclayer.service.impl;
 
 
 import dal.dao.LocalityDao;
-import dal.entity.Locality;
+import entity.Locality;
 import dto.LocaliseLocalityDto;
 import dto.mapper.Mapper;
 import jakarta.ejb.EJB;
@@ -32,7 +32,6 @@ public class LocalityServiceImpl implements LocalityService {
 
     @Override
     public List<LocaliseLocalityDto> getLocaliseLocalities(Locale locale) {
-        log.debug("localeLang - " + locale.getLanguage());
 
         return localityDao.findAllLocaliseLocalitiesWithoutConnection(locale).stream()
                 .map(getLocalityToLocaliseLocalityDto(locale)::map)

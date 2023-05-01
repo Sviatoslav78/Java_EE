@@ -51,7 +51,11 @@ public class CounterController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("");
 
-        request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
+        Locale locale = (Locale) request.getSession().getAttribute(SESSION_LANG);
+        if (locale == null) {
+            locale = Locale.ENGLISH;
+        }
+        request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities(locale));
         request.getRequestDispatcher(MAIN_WEB_FOLDER + COUNTER_FILE_NAME).forward(request, response);
     }
 
@@ -59,8 +63,11 @@ public class CounterController extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean isDataValid = getDeliveryInfoRequestDtoValidator().isValid(request);
         log.debug("isValidRequest = " + isDataValid);
-
-        request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities((Locale) request.getSession().getAttribute(SESSION_LANG)));
+        Locale locale = (Locale) request.getSession().getAttribute(SESSION_LANG);
+        if (locale == null) {
+            locale = Locale.ENGLISH;
+        }
+        request.setAttribute(LOCALITY_LIST, localityService.getLocaliseLocalities(locale));
         if (!isDataValid) {
             request.setAttribute(INPUT_HAS_ERRORS, true);
             request.getRequestDispatcher(MAIN_WEB_FOLDER + COUNTER_FILE_NAME).forward(request, response);

@@ -59,7 +59,13 @@ public class RegistrationController extends HttpServlet {
             return;
         }
         String processingServiceRegistrationRequest = processingServiceRegistrationRequest(request, getRegistrationInfoDtoRequestDtoMapper(request).mapToDto(request));
-        request.getRequestDispatcher(processingServiceRegistrationRequest).forward(request, response);
+        if (processingServiceRegistrationRequest.contains(REDIRECT_COMMAND)) {
+            String redirectPath = processingServiceRegistrationRequest.replace(REDIRECT_COMMAND, "");
+            response.sendRedirect(redirectPath);
+        } else {
+            request.getRequestDispatcher(processingServiceRegistrationRequest).forward(request, response);
+        }
+
     }
 
     private RequestDtoMapper<RegistrationInfoDto> getRegistrationInfoDtoRequestDtoMapper(HttpServletRequest request) {
@@ -73,7 +79,8 @@ public class RegistrationController extends HttpServlet {
     private String processingServiceRegistrationRequest(HttpServletRequest request, RegistrationInfoDto registrationInfoDto) {
         try {
             userService.addNewUserToDB(registrationInfoDto);
-            return REDIRECT_COMMAND + ANONYMOUS_FOLDER + LOGIN_REQUEST_COMMAND;
+            return REDIRECT_COMMAND + LOGIN_REQUEST_COMMAND;
+//            return REDIRECT_COMMAND + ANONYMOUS_FOLDER + LOGIN_REQUEST_COMMAND;
         } catch (OccupiedLoginException e) {
             request.setAttribute(INPUT_LOGIN_ALREADY_TAKEN, true);
             return MAIN_WEB_FOLDER + ANONYMOUS_FOLDER + REGISTRATION_FILE_NAME;

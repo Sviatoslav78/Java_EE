@@ -14,7 +14,7 @@ function bindActionsToDocument (){
     load();
     function localityGetRequest(selectedIndex, option) {
         var request = new XMLHttpRequest();
-        request.open("GET", "http://localhost:8088/delivery/get/localitiesGet/by/localitySend/id?id="
+        request.open("GET", "http://localhost:8080/get/localitiesGet/by/localitySend/id?id="
             + option.options[selectedIndex].value, true);
 
         request.onreadystatechange = function () {

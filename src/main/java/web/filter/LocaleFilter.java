@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.jsp.jstl.core.Config;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -32,11 +31,11 @@ public class LocaleFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        if (request.getParameter(REQUEST_LANG) != null) {
-            Config.set(request.getSession(), Config.FMT_LOCALE, new Locale(request.getParameter(REQUEST_LANG)));
-        } else if (request.getSession().getAttribute(SESSION_LANG) == null) {
-            Config.set(request.getSession(), Config.FMT_LOCALE, Locale.getDefault());
-        }
+//        if (request.getParameter(REQUEST_LANG) != null) {
+//            Config.set(request.getSession(), Config.FMT_LOCALE, new Locale(request.getParameter(REQUEST_LANG)));
+//        } else if (request.getSession().getAttribute(SESSION_LANG) == null) {
+//            Config.set(request.getSession(), Config.FMT_LOCALE, Locale.getDefault());
+//        }
         filterChain.doFilter(servletRequest, servletResponse);
 
     }

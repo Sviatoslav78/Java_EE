@@ -1,61 +1,61 @@
-package dal.dao.impl;
-
-import dal.dao.WayDao;
-import dal.dao.maper.ResultSetToEntityMapper;
-import dal.dto.DeliveryCostAndTimeDto;
-import dal.entity.Way;
-import jakarta.ejb.Singleton;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import java.util.Optional;
-
-/**
- * Implements an interface for work with {@link Way}
- *
- * @author Vendelovskyi Ivan
- * @version 1.0
- */
-
-@Singleton
-public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
-    private static final String PRICE = "price";
-    private static final String TIME_ON_WAY_IN_DAYS = "time_on_way_in_days";
-    private static final String GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
-            "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
-    private static final Logger log = LogManager.getLogger(JDBCWayDao.class);
-
-    @Override
-    public Optional<DeliveryCostAndTimeDto> findByLocalitySandIdAndLocalityGetId(long localitySandID, long localityGetID, int weight) {
-//        log.debug("findByLocalitySandIdAndLocalityGetId");
+//package dal.dao.impl;
 //
-//        ResultSetToEntityMapper<DeliveryCostAndTimeDto> mapper = getDeliveryCostAndTimeDtoResultSetToEntityMapper();
+//import dal.dao.WayDao;
+//import dal.dao.maper.ResultSetToEntityMapper;
+//import dal.dto.DeliveryCostAndTimeDto;
+//import dal.entity.Way;
+//import jakarta.ejb.Singleton;
+//import org.apache.log4j.LogManager;
+//import org.apache.log4j.Logger;
 //
-//        try (ConnectionProxy connection = connector.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.
-//                     getString(GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT))) {
+//import java.util.Optional;
 //
-//            preparedStatement.setLong(1, localitySandID);
-//            preparedStatement.setLong(2, localityGetID);
-//            preparedStatement.setInt(3, weight);
-//            preparedStatement.setInt(4, weight);
-//            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-//                return resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
-//            }
-//        } catch (SQLException e) {
-//            log.error("SQLException", e);
-//            throw new DBRuntimeException();
-//        }
-        return null;
-
-    }
-
-    private ResultSetToEntityMapper<DeliveryCostAndTimeDto> getDeliveryCostAndTimeDtoResultSetToEntityMapper() {
-//        return resultSet -> DeliveryCostAndTimecom.example.my_demo.dto.builder()
-//                .costInCents(resultSet.getLong(PRICE))
-//                .timeOnWayInHours(resultSet.getInt(TIME_ON_WAY_IN_DAYS))
-//                .build();
-        return null;
-    }
-
-}
+///**
+// * Implements an interface for work with {@link Way}
+// *
+// * @author Vendelovskyi Ivan
+// * @version 1.0
+// */
+//
+//@Singleton
+//public class JDBCWayDao extends JDBCAbstractGenericDao<Way> implements WayDao {
+//    private static final String PRICE = "price";
+//    private static final String TIME_ON_WAY_IN_DAYS = "time_on_way_in_days";
+//    private static final String GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT =
+//            "way.find.price.and.time.by.locality_send_id.and.locality_get_id.and.weight";
+//    private static final Logger log = LogManager.getLogger(JDBCWayDao.class);
+//
+//    @Override
+//    public Optional<DeliveryCostAndTimeDto> findByLocalitySandIdAndLocalityGetId(long localitySandID, long localityGetID, int weight) {
+////        log.debug("findByLocalitySandIdAndLocalityGetId");
+////
+////        ResultSetToEntityMapper<DeliveryCostAndTimeDto> mapper = getDeliveryCostAndTimeDtoResultSetToEntityMapper();
+////
+////        try (ConnectionProxy connection = connector.getConnection();
+////             PreparedStatement preparedStatement = connection.prepareStatement(resourceBundleRequests.
+////                     getString(GET_COST_AND_TIME_ON_DELIVERY_BY_LOCALITY_SEND_ID_LOCALITY_GET_ID_DELIVERY_WEIGHT))) {
+////
+////            preparedStatement.setLong(1, localitySandID);
+////            preparedStatement.setLong(2, localityGetID);
+////            preparedStatement.setInt(3, weight);
+////            preparedStatement.setInt(4, weight);
+////            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+////                return resultSet.next() ? Optional.of(mapper.map(resultSet)) : Optional.empty();
+////            }
+////        } catch (SQLException e) {
+////            log.error("SQLException", e);
+////            throw new DBRuntimeException();
+////        }
+//        return null;
+//
+//    }
+//
+//    private ResultSetToEntityMapper<DeliveryCostAndTimeDto> getDeliveryCostAndTimeDtoResultSetToEntityMapper() {
+////        return resultSet -> DeliveryCostAndTimecom.example.my_demo.dto.builder()
+////                .costInCents(resultSet.getLong(PRICE))
+////                .timeOnWayInHours(resultSet.getInt(TIME_ON_WAY_IN_DAYS))
+////                .build();
+//        return null;
+//    }
+//
+//}

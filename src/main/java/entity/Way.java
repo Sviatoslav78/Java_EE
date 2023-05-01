@@ -20,7 +20,6 @@ import java.util.List;
 @Entity
 @Table(name = "way",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"locality_send_id", "locality_get_id"})})
-
 public class Way {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +33,11 @@ public class Way {
     private Locality localityGet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "way")
     private List<Delivery> deliveries;
-    @Column(nullable = false)
+    @Column(name = "distance_in_kilometres", nullable = false)
     private int distanceInKilometres;
-    @Column(nullable = false)
+    @Column(name = "time_on_way_in_days", nullable = false)
     private int timeOnWayInDays;
-    @Column(nullable = false)
+    @Column(name = "price_for_kilometer_in_cents", nullable = false)
     private int priceForKilometerInCents;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

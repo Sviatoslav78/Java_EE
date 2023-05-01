@@ -3,7 +3,7 @@ package dao;
 import dal.dao.UserDao;
 import dal.exeption.AskedDataIsNotCorrect;
 import entity.User;
-import jakarta.persistence.Query;
+import jakarta.ejb.Singleton;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import logiclayer.exeption.ToMachMoneyException;
@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public class JpaUserDao extends AbstractJpaDao<User> implements UserDao {
 
     private static final String FIND_ENABLED_USER_BY_EMAIL = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password AND u.accountNonExpired = true AND u.accountNonLocked = true AND u.credentialsNonExpired = true AND u.enabled = true";
@@ -24,8 +25,8 @@ public class JpaUserDao extends AbstractJpaDao<User> implements UserDao {
     public Optional<User> findByEmailAndPasswordWithPermissions(String email, String password) {
         //SELECT * FROM user WHERE user.email = ? AND user.password = ? AND user.account_non_expired = true AND user.account_non_locked = true AND user.credentials_non_expired = true AND user.enabled = true
         TypedQuery<User> query = entityManager.createQuery(FIND_ENABLED_USER_BY_EMAIL, User.class);
-        query.setParameter(1, email);
-        query.setParameter(2, password);
+        query.setParameter("email", email);
+        query.setParameter("password", password);
         User user = query.getSingleResult();
         return Optional.ofNullable(user);
     }
@@ -77,4 +78,15 @@ public class JpaUserDao extends AbstractJpaDao<User> implements UserDao {
     public List<User> getAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query.setParameter("email", email);
+        User user = query.getSingleResult();
+        return Optional.ofNullable(user);
+    }
+
+
+
 }

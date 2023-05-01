@@ -24,11 +24,11 @@ public class TariffWeightFactor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private long id;
-    @Column(nullable = false)
+    @Column(name = "min_weight_range", nullable = false)
     private int minWeightRange;
-    @Column(nullable = false)
+    @Column(name = "max_weight_range", nullable = false)
     private int maxWeightRange;
-    @Column(nullable = false)
+    @Column(name = "over_pay_on_kilometer", nullable = false)
     private int overPayOnKilometer;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "wayTariffs")

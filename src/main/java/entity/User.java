@@ -35,16 +35,16 @@ public class User {
     private RoleType roleType;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false, columnDefinition = "BIGINT default 0")
+    @Column(name = "user_money_in_cents", nullable = false, columnDefinition = "BIGINT default 0")
     private long userMoneyInCents;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressee")
     private List<Delivery> deliveriesForUser;
 
-    @Column(nullable = false, columnDefinition = "BIT(1) default 1")
+    @Column(name = "account_non_expired", nullable = false, columnDefinition = "BIT(1) default 1")
     private boolean accountNonExpired;
-    @Column(nullable = false, columnDefinition = "BIT(1) default 1")
+    @Column(name = "account_non_locked",nullable = false, columnDefinition = "BIT(1) default 1")
     private boolean accountNonLocked;
-    @Column(nullable = false, columnDefinition = "BIT(1) default 1")
+    @Column(name = "credentials_non_expired",nullable = false, columnDefinition = "BIT(1) default 1")
     private boolean credentialsNonExpired;
     @Column(nullable = false, columnDefinition = "BIT(1) default 1")
     private boolean enabled;

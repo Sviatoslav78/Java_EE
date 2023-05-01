@@ -1,8 +1,10 @@
 package dal.dao;
 
+import dao.JpaCrudDao;
 import entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
 import logiclayer.exeption.ToMachMoneyException;
+
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.Optional;
  * @author Vendelovskyi Ivan
  * @version 1.0
  */
-public interface UserDao {
+public interface UserDao extends JpaCrudDao<User> {
 
     Optional<User> findByEmailAndPasswordWithPermissions(String email, String password);
     /**
@@ -33,4 +35,7 @@ public interface UserDao {
     long getUserBalanceByUserID(long userId) throws AskedDataIsNotCorrect;
 
     List<User> getAllUsers();
+    Optional<User> findByEmail(String email);
+
+
 }

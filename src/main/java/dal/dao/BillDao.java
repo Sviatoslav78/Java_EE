@@ -1,7 +1,9 @@
 package dal.dao;
 
-import dal.entity.Bill;
 import dal.exeption.AskedDataIsNotCorrect;
+import entity.Bill;
+import entity.Delivery;
+import entity.User;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,7 +28,9 @@ public interface BillDao {
 
     boolean murkBillAsPayed(long billId) throws SQLException;
 
-    boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException;
+//    boolean createBill(long deliveryId, long userId, long localitySandID, long localityGetID, int weight) throws SQLException;
 
     long countAllBillsByUserId(long userId);
+    boolean createBill(Delivery delivery, long costInCents, User user);
+
 }

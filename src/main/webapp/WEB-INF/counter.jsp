@@ -53,12 +53,11 @@
                     <tbody>
                     <tr>
                         <td><span><fmt:message key="homepage.paragraph.price"/></span></td>
-                        <td><span><custom:localise-money moneyInCents="${requestScope.CostAndTimecom.example.my_demo.dto.costInCents}"
-                                                         lang="${pageContext.response.locale.language}"/></span></td>
+                        <td><span>${requestScope.CostAndTimeDto.costInCents}</span></td>
                     </tr>
                     <tr>
                         <td><span><fmt:message key="homepage.paragraph.time"/></span></td>
-                        <td><span>${requestScope.CostAndTimecom.example.my_demo.dto.timeOnWayInHours}</span></td>
+                        <td><span>${requestScope.CostAndTimeDto.timeOnWayInHours}</span></td>
                     </tr>
                     </tbody>
                 </table>

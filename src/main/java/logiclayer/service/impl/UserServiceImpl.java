@@ -2,14 +2,16 @@ package logiclayer.service.impl;
 
 
 import dal.dao.UserDao;
-import dal.entity.User;
+import entity.User;
 import dal.exeption.AskedDataIsNotCorrect;
 import dto.LoginInfoDto;
 import dto.RegistrationInfoDto;
 import dto.UserStatisticDto;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import logiclayer.exeption.NoSuchUserException;
 import logiclayer.exeption.OccupiedLoginException;
 import logiclayer.exeption.ToMachMoneyException;
@@ -30,7 +32,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 
-@Singleton
+@Stateless
 public class UserServiceImpl implements UserService {
     private static final Logger log = LogManager.getLogger(UserService.class);
     @EJB
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(NoSuchUserException::new);
     }
 
+    @Transactional
     @Override
     public boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException {
         log.debug("registrationInfoDto -" + registrationInfoDto);

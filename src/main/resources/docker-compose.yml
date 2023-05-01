@@ -1,8 +1,9 @@
 services:
   db:
-    image: mysql:5.7
+#    image: mysql:5.7
+    image: mysql:8.0.32
     environment:
-      MYSQL_DATABASE: 'mydatabase'
+      MYSQL_DATABASE: 'delivery'
     # So you don't have to use root, but you can if you like
       MYSQL_USER: 'user'
     # You can use whatever password you like

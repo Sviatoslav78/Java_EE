@@ -19,6 +19,7 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "bill")
 public class Bill {
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -31,12 +32,13 @@ public class Bill {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @Column(columnDefinition = "BIT(1) default 0")
+    @Column(name="is_delivery_paid", columnDefinition = "BIT(1) default 0")
     private boolean isDeliveryPaid;
 
-    @Column(nullable = false)
+    @Column(name="cost_in_cents", nullable = false)
     private long costInCents;
 
+    @Column(name = "date_of_pay")
     private LocalDate dateOfPay;
 
     @Override

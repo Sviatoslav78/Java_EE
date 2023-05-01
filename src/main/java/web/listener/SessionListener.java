@@ -5,10 +5,10 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 
+import java.util.Locale;
 import java.util.Map;
 
-import static web.constant.AttributeConstants.LOGGED_USER_NAMES;
-import static web.constant.AttributeConstants.SESSION_USER;
+import static web.constant.AttributeConstants.*;
 
 /**
  * Control users logout: close their sessions and delete them from logged user map
@@ -20,7 +20,7 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-
+        httpSessionEvent.getSession().setAttribute(SESSION_LANG, Locale.ENGLISH);
     }
 
     @Override

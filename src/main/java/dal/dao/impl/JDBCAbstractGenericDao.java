@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * @author Vendelovskyi Ivan
  * @version 1.0
  */
-@Singleton
+
 abstract class JDBCAbstractGenericDao<E> implements AbstractGenericDao<E> {
 
     private static final Logger log = LogManager.getLogger(JDBCAbstractGenericDao.class);
