@@ -8,7 +8,7 @@ public interface PageConstance {
     String REDIRECT_COMMAND = "redirect:";
     String MAIN_WEB_FOLDER = "/WEB-INF/";
     String USER_FOLDER = "user/";
-    String ANONYMOUS_FOLDER = "anonymous/";
+    String ANONYMOUS_FOLDER = "/anonymous/";
     String ADMIN_FOLDER = "admin/";
 
     String USERS_JSP = "users.jsp";
@@ -24,11 +24,11 @@ public interface PageConstance {
     String USER_STATISTIC_FILE_NAME = "user-statistic.jsp";
 
 
-    String LOGIN_REQUEST_COMMAND = "login";
+    String LOGIN_REQUEST_COMMAND = "/anonymous/login";
     String ERROR_404_COMMAND = "404";
-    String USER_PROFILE_REQUEST_COMMAND = "user/user-profile";
+    String USER_PROFILE_REQUEST_COMMAND = "/user/user-profile";////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA левая резьбАААА
 
-    String REDIRECT_ON_ERROR_404_STRAIGHT = "/delivery/404";
+    String REDIRECT_ON_ERROR_404_STRAIGHT = "/404";
 
 
 }

@@ -1,6 +1,6 @@
 package web.controller;
 
-import dal.entity.User;
+import entity.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -39,7 +39,7 @@ public class LogOutController extends HttpServlet {
                 .getAttribute(LOGGED_USER_NAMES);
         loggedUsers.remove(((User) request.getSession().getAttribute(SESSION_USER)).getEmail());
         request.getSession().invalidate();
-        request.getRequestDispatcher(REDIRECT_COMMAND + ANONYMOUS_FOLDER + LOGIN_REQUEST_COMMAND).forward(request, response);
+        response.sendRedirect(LOGIN_REQUEST_COMMAND);
     }
 
 

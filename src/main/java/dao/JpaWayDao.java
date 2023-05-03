@@ -41,7 +41,7 @@ public class JpaWayDao extends AbstractJpaDao<Way> implements WayDao {
 
     @Override
     public Optional<Way> findByLocalitySendIdAndGetId(long localitySandID, long localityGetID) {
-        TypedQuery<Way> query = entityManager.createQuery("SELECT w FROM Way w  WHERE w.localitySand= :localitySandID AND w.localityGet= :localityGetID", Way.class);
+        TypedQuery<Way> query = entityManager.createQuery("SELECT w FROM Way w WHERE w.localitySand.id= :localitySandID AND w.localityGet.id= :localityGetID", Way.class);
         query.setParameter("localitySandID", localitySandID);
         query.setParameter("localityGetID", localityGetID);
         return Optional.ofNullable(query.getSingleResult());

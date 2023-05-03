@@ -17,7 +17,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
@@ -67,7 +69,8 @@ public class LoginController extends HttpServlet {
                 .getSession().getServletContext()
                 .getAttribute(LOGGED_USER_NAMES);
         if (loggedUsers == null) {
-            loggedUsers = emptyMap();
+            loggedUsers = new ConcurrentHashMap<>();
+            request.getSession().getServletContext().setAttribute(LOGGED_USER_NAMES, loggedUsers);
         }
         if (loggedUsers.containsKey(loginInfoDto.getUsername())) {
             loggedUsers.get(loginInfoDto.getUsername()).invalidate();

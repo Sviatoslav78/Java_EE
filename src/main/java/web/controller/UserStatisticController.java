@@ -1,6 +1,6 @@
 package web.controller;
 
-import dal.entity.User;
+import entity.User;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

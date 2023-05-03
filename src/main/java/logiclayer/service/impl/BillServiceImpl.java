@@ -108,8 +108,7 @@ public class BillServiceImpl implements BillService {
         Optional<DeliveryCostAndTimeDto> deliveryCostAndTimeDto = wayDao.findByLocalitySandIdAndLocalityGetId(deliveryOrderCreateDto.getLocalitySandID(),
                 deliveryOrderCreateDto.getLocalityGetID(), deliveryOrderCreateDto.getDeliveryWeight());
         try {
-            long newDeliveryId = deliveryDao.createDelivery(user, way, deliveryOrderCreateDto.getDeliveryWeight());
-            Delivery delivery = deliveryDao.findById(newDeliveryId);
+            Delivery delivery = deliveryDao.createDelivery(user, way, deliveryOrderCreateDto.getDeliveryWeight());
 
             if (billDao.createBill(delivery, deliveryCostAndTimeDto.get().getCostInCents(), initiator)) {
                 return;

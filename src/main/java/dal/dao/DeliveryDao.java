@@ -25,6 +25,6 @@ public interface DeliveryDao extends JpaCrudDao<Delivery> {
     /**
      * @throws AskedDataIsNotCorrect if noting found
      */
-    long createDelivery(User user, Way way, int weight) throws AskedDataIsNotCorrect;
+    Delivery createDelivery(User user, Way way, int weight) throws AskedDataIsNotCorrect;
 
 }

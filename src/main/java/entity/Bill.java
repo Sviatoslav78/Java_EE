@@ -22,9 +22,9 @@ import java.util.Objects;
 @Table(name = "bill")
 public class Bill {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id", referencedColumnName = "id", nullable = false)
-    Delivery delivery;
+    private Delivery delivery;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)

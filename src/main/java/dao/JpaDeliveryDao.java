@@ -25,7 +25,7 @@ public class JpaDeliveryDao extends AbstractJpaDao<Delivery> implements Delivery
         //     locality as localiti_get on way.locality_get_id=localiti_get.id where delivery.addressee_id = ?
         //     and delivery.is_package_received = false and bill.is_delivery_paid=true
         //----language is ignored
-        TypedQuery<Delivery> allDeliveryQuery = entityManager.createQuery("SELECT d FROM Delivery d JOIN FETCH Bill b where b.user.id =:userId AND d.isPackageReceived=false AND b.isDeliveryPaid=true", Delivery.class);
+        TypedQuery<Delivery> allDeliveryQuery = entityManager.createQuery("SELECT d FROM Delivery d JOIN FETCH Bill b where d.addressee.id =:userId AND d.isPackageReceived=false AND b.isDeliveryPaid=true", Delivery.class);
         allDeliveryQuery.setParameter("userId", userId);
         return allDeliveryQuery.getResultList();
     }
@@ -41,16 +41,15 @@ public class JpaDeliveryDao extends AbstractJpaDao<Delivery> implements Delivery
     }
 
     @Override
-    public long createDelivery(User user, Way way, int weight) throws AskedDataIsNotCorrect {
+    public Delivery createDelivery(User user, Way way, int weight) throws AskedDataIsNotCorrect {
         // INSERT INTO delivery (delivery.addressee_id, delivery.way_id, delivery.weight) VALUES ((SELECT user.id FROM user WHERE user.email= ? ), (SELECT way.id FROM way WHERE way.locality_send_id= ? AND way.locality_get_id= ?), ?)
 
         Delivery delivery = new Delivery();
+        super.create(delivery);
         delivery.setAddressee(user);
         delivery.setWay(way);
         delivery.setWeight(weight);
-        super.create(delivery);
-        entityManager.flush();
-        // orElseThrow(AskedDataIsNotCorrect::new) can be removed, need to change interface
-        return Optional.of(delivery.getId()).orElseThrow(AskedDataIsNotCorrect::new);
+        super.update(delivery);
+        return delivery;
     }
 }

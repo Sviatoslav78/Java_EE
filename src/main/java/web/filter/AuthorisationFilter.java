@@ -1,13 +1,14 @@
 package web.filter;
 
-import dal.entity.RoleType;
-import dal.entity.User;
+import entity.RoleType;
+import entity.User;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import static web.constant.PageConstance.REDIRECT_ON_ERROR_404_STRAIGHT;
  * @author Vendelovskyi Ivan
  * @version 1.0
  */
+@WebFilter(urlPatterns = "/*")
 public class AuthorisationFilter implements Filter {
 
     private static final String ADMIN_REQUEST = "/admin";

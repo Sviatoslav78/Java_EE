@@ -1,7 +1,10 @@
 package dao;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Persistence;
 
 
 public abstract class AbstractJpaDao<T> {
@@ -16,23 +19,62 @@ public abstract class AbstractJpaDao<T> {
     }
 
     public void create(final T entity) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entity);
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+            entityManager.clear();
+        } catch (Throwable throwable) {
+            System.out.println(throwable.getMessage());
+            entityManager.getTransaction().rollback();
+            entityManager.clear();
+        }
 
-        entityManager.persist(entity);
-        entityManager.flush();
     }
 
     public void save(final T entity) {
 
-        entityManager.persist(entity);
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entity);
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+            entityManager.clear();
+        } catch (Throwable throwable) {
+            System.out.println(throwable.getMessage());
+            entityManager.getTransaction().rollback();
+            entityManager.clear();
+        }
     }
 
     public void update(final T entity) {
 
-        entityManager.merge(entity);
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+            entityManager.clear();
+        } catch (Throwable throwable) {
+            System.out.println(throwable.getMessage());
+            entityManager.getTransaction().rollback();
+            entityManager.clear();
+        }
     }
 
     public void delete(final T entity) {
-        entityManager.remove(entityManager.merge(entity));
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.merge(entity));
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+            entityManager.clear();
+        } catch (Throwable throwable) {
+            System.out.println(throwable.getMessage());
+            entityManager.getTransaction().rollback();
+            entityManager.clear();
+        }
     }
 
     public T findById(final Object id) {

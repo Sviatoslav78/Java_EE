@@ -40,7 +40,7 @@ public class JpaBillDao extends AbstractJpaDao<Bill> implements BillDao {
     @Override
     public long getBillCostIfItIsNotPaid(long billId, long userId) throws AskedDataIsNotCorrect {
 //      select bill.cost_in_cents from bill where bill.id= ? and bill.is_delivery_paid=false and bill.user_id = ?
-        TypedQuery<Long> query = entityManager.createQuery("SELECT b.costInCents  FROM Bill b WHERE id=:billId AND b.user.id= :userId", Long.class);
+        TypedQuery<Long> query = entityManager.createQuery("SELECT b.costInCents  FROM Bill b WHERE b.id=:billId AND b.user.id= :userId", Long.class);
         query.setParameter("billId", billId);
         query.setParameter("userId", userId);
 
@@ -53,7 +53,7 @@ public class JpaBillDao extends AbstractJpaDao<Bill> implements BillDao {
     public List<Bill> getHistoricBillsByUserId(long userId, Integer offset, Integer limit) {
 //SELECT bill.id as bill_id, bill.delivery_id, bill.is_delivery_paid, bill.cost_in_cents, bill.date_of_pay FROM bill
 // where bill.user_id = ? and bill.is_delivery_paid=true ORDER BY bill.id DESC LIMIT ?, ?
-        TypedQuery<Bill> query = entityManager.createQuery("SELECT b.id, b.delivery, b.isDeliveryPaid, b.costInCents, b.dateOfPay FROM Bill b WHERE b.id=:userId " +
+        TypedQuery<Bill> query = entityManager.createQuery("SELECT b FROM Bill b WHERE b.user.id=:userId " +
                 "AND  b.isDeliveryPaid=true ORDER BY b.id DESC ", Bill.class);
         query.setParameter("userId", userId);
         query.setFirstResult(offset);
@@ -80,17 +80,19 @@ public class JpaBillDao extends AbstractJpaDao<Bill> implements BillDao {
 //    JOIN tariff_weight_factor ON way_tariff_weight_factor.tariff_weight_factor_id=tariff_weight_factor.id
 //    WHERE locality_send_id = ? AND locality_get_id = ? AND min_weight_range < ? AND max_weight_range >= ?),?,?);
         Bill bill = new Bill();
+        super.create(bill);
         bill.setDelivery(delivery);
+        delivery.setBill(bill);
         bill.setCostInCents(costInCents);
         bill.setUser(user);
-        super.create(bill);
+        super.update(bill);
         return true;
     }
 
     @Override
     public long countAllBillsByUserId(long userId) {
 //        SELECT COUNT(*) FROM bill WHERE bill.user_id=? and bill.is_delivery_paid=true
-        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(b) FROM Bill b WHERE b.user=:userId and b.isDeliveryPaid=true", Long.class);
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(b) FROM Bill b WHERE b.user.id=:userId and b.isDeliveryPaid=true", Long.class);
         query.setParameter("userId", userId);
         return query.getSingleResult();
     }

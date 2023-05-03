@@ -1,6 +1,6 @@
 package web.controller;
 
-import dal.entity.User;
+import entity.User;
 import dto.DeliveryOrderCreateDto;
 import dto.mapper.RequestDtoMapper;
 import dto.validation.Validator;

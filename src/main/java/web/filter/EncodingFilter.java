@@ -6,6 +6,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
  * @author Vendelovskyi Ivan
  * @version 1.0
  */
+@WebFilter(urlPatterns = "/*")
 public class EncodingFilter implements Filter {
 
     private static final String CONTENT_TYPE = "text/html";

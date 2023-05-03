@@ -50,6 +50,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         log.debug("userId - " + userId + " localeLang - " + locale.getLanguage());
 
         return deliveryDao.getDeliveryInfoToGet(userId, locale).stream()
+                .distinct()
                 .map(getDeliveryInfoToGetDtoMapper(locale)::map)
                 .collect(Collectors.toList());
     }

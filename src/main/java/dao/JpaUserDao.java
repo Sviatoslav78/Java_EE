@@ -2,6 +2,7 @@ package dao;
 
 import dal.dao.UserDao;
 import dal.exeption.AskedDataIsNotCorrect;
+import entity.RoleType;
 import entity.User;
 import jakarta.ejb.Singleton;
 import jakarta.persistence.TypedQuery;
@@ -36,6 +37,11 @@ public class JpaUserDao extends AbstractJpaDao<User> implements UserDao {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
+        user.setRoleType(RoleType.ROLE_USER);
+        user.setEnabled(true);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
         super.create(user);
         return true;
     }

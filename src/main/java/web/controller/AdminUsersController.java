@@ -22,7 +22,7 @@ import static web.constant.PageConstance.USERS_JSP;
  * @author Vendelovskyi Ivan
  * @version 1.0
  */
-@WebServlet(name = "AdminUsersController", value = "/institution")
+@WebServlet(name = "AdminUsersController", value = "/admin/users")
 public class AdminUsersController extends HttpServlet {
     private static final String USERS_LIST = "usersList";
     private static final Logger log = LogManager.getLogger(AdminUsersController.class);

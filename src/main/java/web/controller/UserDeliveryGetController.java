@@ -1,6 +1,6 @@
 package web.controller;
 
-import dal.entity.User;
+import entity.User;
 import dto.validation.IDValidator;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
