@@ -1,35 +1,14 @@
 package logiclayer.service;
 
-import entity.User;
-import dto.LoginInfoDto;
-import dto.RegistrationInfoDto;
-import dto.UserStatisticDto;
-import logiclayer.exeption.NoSuchUserException;
-import logiclayer.exeption.OccupiedLoginException;
-import logiclayer.exeption.ToMachMoneyException;
-
-import java.util.List;
-
-/**
- * Declares an interface for work with users
- *
- * @author Vendelovskyi Ivan
- * @version 1.0
- */
 public interface UserService {
+    String getUserById(int parameter);
 
+    String createUser(int userId);
 
-    User loginUser(LoginInfoDto loginInfoDto) throws NoSuchUserException;
+    String updateUserName(int parseInt, String parseInt1);
 
-    boolean addNewUserToDB(RegistrationInfoDto registrationInfoDto) throws OccupiedLoginException;
+    String deleteUserById(int parseInt);
 
-    /**
-     * @throws ToMachMoneyException if after replenish will be overload long
-     */
-    void replenishAccountBalance(long userId, long amountMoney) throws NoSuchUserException, ToMachMoneyException;
-
-    long getUserBalance(long userId);
-
-    List<UserStatisticDto> getAllUsers();
-
+    String getAllUsers();
 }
+

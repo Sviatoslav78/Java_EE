@@ -5,11 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>my_demo</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>my_demo</name>
+    <artifactId>glassfishtest</artifactId>
+    <version>1</version>
+    <name>glassfishtest</name>
     <packaging>war</packaging>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>

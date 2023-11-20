@@ -5,15 +5,15 @@
              version="3.0">
     <persistence-unit name="default">
 <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-        <class>entity.User</class>
+        <class>entity.UserModel</class>
         <class>entity.Delivery</class>
         <class>entity.Bill</class>
         <class>entity.Locality</class>
         <class>entity.TariffWeightFactor</class>
-        <class>entity.Way</class> <class>entity.User</class>
+        <class>entity.Way</class> <class>entity.UserModel</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/delivery?createDatabaseIfNotExists=true&amp;autoReconnect=true&amp;useSSL=false"/>
-            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.userModel" value="root"/>
             <property name="jakarta.persistence.jdbc.password" value="root"/>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.schema-generation.database.action"

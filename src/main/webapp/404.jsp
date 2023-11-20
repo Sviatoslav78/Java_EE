@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Sviatoslav
-  Date: 03.04.2023
-  Time: 22:36
+  User: Ivan_Vendelovskyi
+  Date: 7/24/2023
+  Time: 1:02 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Hello JSP</title>
+    <title>404</title>
 </head>
 <body>
-<h1>Your userModel was successfully added to DB!</h1>
+
 </body>
 </html>

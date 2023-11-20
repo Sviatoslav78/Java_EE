@@ -20,11 +20,11 @@ CREATE SCHEMA IF NOT EXISTS `delivery` DEFAULT CHARACTER SET utf8mb4  ;
 USE `delivery` ;
 
 -- -----------------------------------------------------
--- Table `delivery`.`user`
+-- Table `delivery`.`userModel`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `delivery`.`user` ;
+DROP TABLE IF EXISTS `delivery`.`userModel` ;
 
-CREATE TABLE IF NOT EXISTS `delivery`.`user` (
+CREATE TABLE IF NOT EXISTS `delivery`.`userModel` (
                                                  `id` BIGINT NOT NULL AUTO_INCREMENT,
                                                  `account_non_expired` BIT(1) NOT NULL DEFAULT b'1',
     `account_non_locked` BIT(1) NOT NULL DEFAULT b'1',
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `delivery`.`user` (
     DEFAULT CHARACTER SET = utf8mb4;
 
 
-CREATE UNIQUE INDEX `UK_ob8kqyqqgmefl0aco34akdtpe` ON `delivery`.`user` (`email` ASC) ;
+CREATE UNIQUE INDEX `UK_ob8kqyqqgmefl0aco34akdtpe` ON `delivery`.`userModel` (`email` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `delivery`.`delivery` (
     PRIMARY KEY (`id`),
     CONSTRAINT `FKmh780m8tinmu5vv2k2yvgapyy`
     FOREIGN KEY (`addressee_id`)
-    REFERENCES `delivery`.`user` (`id`),
+    REFERENCES `delivery`.`userModel` (`id`),
     CONSTRAINT `FKtq40wblx9awh2fum7c11ik1c1`
     FOREIGN KEY (`way_id`)
     REFERENCES `delivery`.`way` (`id`))
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `delivery`.`bill` (
     REFERENCES `delivery`.`delivery` (`id`),
     CONSTRAINT `FKqhq5aolak9ku5x5mx11cpjad9`
     FOREIGN KEY (`user_id`)
-    REFERENCES `delivery`.`user` (`id`))
+    REFERENCES `delivery`.`userModel` (`id`))
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb4;
 
@@ -178,10 +178,10 @@ CREATE INDEX `FKt75qu3a8h7qsy726oe3ylpea6` ON `delivery`.`way_tariff_weight_fact
 
 CREATE INDEX `FK5bpbgkkh4sw0tds9gilau5uau` ON `delivery`.`way_tariff_weight_factor` (`way_id` ASC) ;
 
-INSERT INTO `delivery`.`user` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'adminSpring@ukr.net', b'1', '$2a$10$SwoEEvxPuCmPHJPDAqsXJ.MilZLjMBYHiP.ugcDE413zRjEjtjBKy', 'ROLE_ADMIN', b'0');
-INSERT INTO `delivery`.`user` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'userSpring@ukr.net', b'1', '$2a$10$gZ27Uy0Yw.xw6IsGT0UL/e8dSJiuOeys6pEiXchSLyMEverNl6KDW', 'ROLE_USER', b'0');
-INSERT INTO `delivery`.`user` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'adminServlet@ukr.net', b'1', '21232f297a57a5a743894a0e4a801fc3', 'ROLE_ADMIN', b'0');
-INSERT INTO `delivery`.`user` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'userServlet@ukr.net', b'1', 'ee11cbb19052e40b07aac0ca060c23ee', 'ROLE_USER', b'0');
+INSERT INTO `delivery`.`userModel` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'adminSpring@ukr.net', b'1', '$2a$10$SwoEEvxPuCmPHJPDAqsXJ.MilZLjMBYHiP.ugcDE413zRjEjtjBKy', 'ROLE_ADMIN', b'0');
+INSERT INTO `delivery`.`userModel` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'userSpring@ukr.net', b'1', '$2a$10$gZ27Uy0Yw.xw6IsGT0UL/e8dSJiuOeys6pEiXchSLyMEverNl6KDW', 'ROLE_USER', b'0');
+INSERT INTO `delivery`.`userModel` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'adminServlet@ukr.net', b'1', '21232f297a57a5a743894a0e4a801fc3', 'ROLE_ADMIN', b'0');
+INSERT INTO `delivery`.`userModel` (`account_non_expired`, `account_non_locked`, `credentials_non_expired`, `email`, `enabled`, `password`, `role`, `user_money_in_cents`) VALUES (b'1', b'1', b'1', 'userServlet@ukr.net', b'1', 'ee11cbb19052e40b07aac0ca060c23ee', 'ROLE_USER', b'0');
 
 INSERT INTO `delivery`.`tariff_weight_factor` (`max_weight_range`, `min_weight_range`, `over_pay_on_kilometer`) VALUES ('100', '0', '100');
 INSERT INTO `delivery`.`tariff_weight_factor` (`max_weight_range`, `min_weight_range`, `over_pay_on_kilometer`) VALUES ('200', '100', '200');
