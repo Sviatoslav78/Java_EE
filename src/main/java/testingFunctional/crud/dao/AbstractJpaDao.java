@@ -1,4 +1,4 @@
-package dao;
+package testingFunctional.crud.dao;
 
 
 import jakarta.persistence.EntityManager;

@@ -1,5 +1,8 @@
-package logiclayer.service;
+package testingFunctional.crud.services;
 
+import jakarta.ejb.Singleton;
+
+@Singleton
 public interface UserService {
     String getUserById(int parameter);
 

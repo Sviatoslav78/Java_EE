@@ -1,10 +1,12 @@
-package dao;
+package testingFunctional.crud.dao;
 
-import entity.UserModel;
+import jakarta.ejb.Singleton;
+import testingFunctional.crud.model.UserModel;
 
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public interface UserDao {
     Optional<UserModel> getUserById(int parameter);
 

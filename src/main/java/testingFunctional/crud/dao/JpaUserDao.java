@@ -1,6 +1,6 @@
-package dao;
+package testingFunctional.crud.dao;
 
-import entity.UserModel;
+import testingFunctional.crud.model.UserModel;
 import jakarta.ejb.Singleton;
 import jakarta.persistence.TypedQuery;
 

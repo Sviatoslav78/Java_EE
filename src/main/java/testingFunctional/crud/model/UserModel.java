@@ -1,4 +1,4 @@
-package entity;
+package testingFunctional.crud.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,8 +25,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "user",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "user")
 public class UserModel {
 
     @Id

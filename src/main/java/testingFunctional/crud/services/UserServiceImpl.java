@@ -1,25 +1,26 @@
-package logiclayer.service.impl;
+package testingFunctional.crud.services;
 
-import dao.UserDao;
-import entity.UserModel;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
-import logiclayer.service.UserService;
+import testingFunctional.crud.dao.UserDao;
+import testingFunctional.crud.model.UserModel;
+
+import javax.enterprise.inject.Instance;
 
 @Singleton
 public class UserServiceImpl implements UserService {
     @EJB
-    private UserDao userDao;
+    private Instance<UserDao> userDao;
 
     @Override
     public String getUserById(int parameter) {
-        UserModel userModel = userDao.getUserById(parameter).get();
+        UserModel userModel = userDao.get().getUserById(parameter).get();
         return userModel.toString();
     }
 
     @Override
     public String createUser(int userId) {
-        if (userDao.createUser(new UserModel(userId))) {
+        if (userDao.get().createUser(new UserModel(userId))) {
             return getUserById(userId);
         }
         return "";
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String updateUserName(int userId, String userName) {
-        if (userDao.updateUser(new UserModel(userId, userName))) {
+        if (userDao.get().updateUser(new UserModel(userId, userName))) {
             return getUserById(userId);
         }
         return "";
@@ -35,12 +36,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUserById(int userId) {
-        userDao.deleteUser(new UserModel(userId));
+        userDao.get().deleteUser(new UserModel(userId));
         return "";
     }
 
     @Override
     public String getAllUsers() {
-        return userDao.getAllUsers().stream().map(UserModel::toString).reduce((s, s2) -> s + "," + s2).get();
+        return userDao.get().getAllUsers().stream().map(UserModel::toString).reduce((s, s2) -> s + "," + s2).get();
     }
 }
